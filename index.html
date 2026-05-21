@@ -8,6 +8,17 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+  
+  <!-- Weather information display area -->
+   <div class="weather-container hidden">
+     <h2 id="cityName">City Name</h2>
+     <div class="weather-grid">
+       <p id="temperature">Temperature: -- °C</p>
+       <p id="description">Weather Description: --</p>
+       <p id="humidity">Humidity: --%</p>
+       <p id="windSpeed">Wind Speed: -- m/s</p>
+     </div>
+   </div>
     
     <!-- User search interface -->
      <div class="search-container">
@@ -15,14 +26,6 @@
         <button id="searchButton">Search</button>
      </div>
 
-     <!-- Weather information display area -->
-      <div class="weather-container">
-        <h2 id="cityName">City Name</h2>
-        <p id="temperature">Temperature: -- °C</p>
-        <p id="description">Weather Description: --</p>
-        <p id="humidity">Humidity: --%</p>
-        <p id="windSpeed">Wind Speed: -- m/s</p>
-      </div>
 
       <!-- Error message display area -->
       <div class="error-container hidden">
