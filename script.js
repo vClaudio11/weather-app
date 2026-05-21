@@ -1,0 +1,28 @@
+const API_KEY = '1e3a8cff412355c90e4c9aca9be5f1d1'; // Replace with your OpenWeatherMap API key
+const searchInput = document.querySelector('#searchInput');
+const searchButton = document.querySelector('#searchButton');
+const temperature = document.querySelector('#temperature');
+const weatherDescription = document.querySelector('#description');
+const humidity = document.querySelector('#humidity');
+const windSpeed = document.querySelector('#windSpeed');
+const cityName = document.querySelector('#cityName');
+const errorMessage = document.querySelector('#errorMessage');
+
+async function fetchWeather(city) {
+    try {
+
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+        let response = await fetch(url)
+        const data = await response.json();
+        if (data.cod === '404') {
+            throw new Error('City not found. Please check the city name and try again.');
+        }
+        console.log(data);
+
+    } catch (error) {
+        console.log(error);
+        errorMessage.textContent = 'Error fetching weather data. Please try again.';
+    }
+}
+
+fetchWeather('Auckland') 
