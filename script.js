@@ -1,4 +1,4 @@
-const API_KEY = CONFIG.API_KEY; // Replace with your OpenWeatherMap API key
+const API_KEY = 'b38cd688d5c0010b0d7944a904bff140';
 const weatherContainer = document.querySelector('.weather-container');
 const errorContainer = document.querySelector('.error-container');
 const searchInput = document.querySelector('#searchInput');
@@ -23,6 +23,9 @@ async function fetchWeather(city) {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
         let response = await fetch(url)
         const data = await response.json();
+        if (data.cod === 401) {
+            throw new Error('Invalid API key. Please check your API key and try again.');
+        }
         if (data.cod === '404') {
             throw new Error('City not found. Please check the city name and try again.');
         }
