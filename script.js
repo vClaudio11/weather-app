@@ -1,4 +1,6 @@
 const API_KEY = '1e3a8cff412355c90e4c9aca9be5f1d1'; // Replace with your OpenWeatherMap API key
+const weatherContainer = document.querySelector('.weather-container');
+const errorContainer = document.querySelector('.error-container');
 const searchInput = document.querySelector('#searchInput');
 const searchButton = document.querySelector('#searchButton');
 const temperature = document.querySelector('#temperature');
@@ -17,7 +19,7 @@ async function fetchWeather(city) {
         if (data.cod === '404') {
             throw new Error('City not found. Please check the city name and try again.');
         }
-        console.log(data);
+        displayWeather(data);
 
     } catch (error) {
         console.log(error);
@@ -25,4 +27,16 @@ async function fetchWeather(city) {
     }
 }
 
-fetchWeather('Auckland') 
+fetchWeather('Auckland'); // Fetch weather for a default city on page load
+
+function displayWeather(data) {
+    temperature.textContent = `${Math.round(data.main.temp)} °C`;
+    weatherDescription.textContent = data.weather[0].description;
+    humidity.textContent = `Humidity: ${Math.round(data.main.humidity)}%`;
+    windSpeed.textContent = `Wind Speed: ${Math.round(data.wind.speed)} m/s`;
+    cityName.textContent = data.name;
+
+    weatherContainer.classList.remove('hidden');
+    weatherContainer.classList.add('visible');
+    errorContainer.classList.add('hidden');
+}
