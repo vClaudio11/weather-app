@@ -13,8 +13,13 @@ const errorMessage = document.querySelector('#errorMessage');
 // render API data on page load
 
 async function fetchWeather(city) {
-    try {
 
+    // show loading state
+    searchButton.textContent = 'Searching...';
+    searchButton.disabled=true;    
+
+    try {
+        // attempt to fetch weather data from API
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
         let response = await fetch(url)
         const data = await response.json();
@@ -24,13 +29,20 @@ async function fetchWeather(city) {
         displayWeather(data);
 
     } catch (error) {
+        // handle any errors that occur during the fetch process and reset the UI to show the error message
         console.log(error);
-        errorMessage.textContent = `Error fetching weather data. Please try again.`;
+        errorMessage.textContent = `Error: ${error.message}`;
+        errorContainer.classList.remove('hidden');
+        weatherContainer.classList.add('hidden');
+        weatherContainer.classList.remove('visible');
+    } finally {
+        // reset search button state after fetch attempt
+        searchButton.textContent = 'Search';
+        searchButton.disabled=false;
     }
 }
 
 // display weather data onto the page
-
 function displayWeather(data) {
     temperature.textContent = `${Math.round(data.main.temp)}°C`;
     weatherDescription.textContent = data.weather[0].description;
@@ -41,10 +53,11 @@ function displayWeather(data) {
     weatherContainer.classList.remove('hidden');
     weatherContainer.classList.add('visible');
     errorContainer.classList.add('hidden');
+
+    searchInput.value = '';
 }
 
 // search button event listener
-
 searchButton.addEventListener('click', () => {
     const city = searchInput.value.trim();
     if (city !== '') { 
