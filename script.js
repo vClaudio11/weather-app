@@ -10,6 +10,8 @@ const windSpeed = document.querySelector('#windSpeed');
 const cityName = document.querySelector('#cityName');
 const errorMessage = document.querySelector('#errorMessage');
 
+// render API data on page load
+
 async function fetchWeather(city) {
     try {
 
@@ -23,14 +25,14 @@ async function fetchWeather(city) {
 
     } catch (error) {
         console.log(error);
-        errorMessage.textContent = 'Error fetching weather data. Please try again.';
+        errorMessage.textContent = `Error fetching weather data. Please try again.`;
     }
 }
 
-fetchWeather('Auckland'); // Fetch weather for a default city on page load
+// display weather data onto the page
 
 function displayWeather(data) {
-    temperature.textContent = `${Math.round(data.main.temp)} °C`;
+    temperature.textContent = `${Math.round(data.main.temp)}°C`;
     weatherDescription.textContent = data.weather[0].description;
     humidity.textContent = `Humidity: ${Math.round(data.main.humidity)}%`;
     windSpeed.textContent = `Wind Speed: ${Math.round(data.wind.speed)} m/s`;
@@ -40,3 +42,22 @@ function displayWeather(data) {
     weatherContainer.classList.add('visible');
     errorContainer.classList.add('hidden');
 }
+
+// search button event listener
+
+searchButton.addEventListener('click', () => {
+    const city = searchInput.value.trim();
+    if (city !== '') { 
+        fetchWeather(city);
+    }   else {
+        errorMessage.textContent = `Please enter a city name.`;
+        errorContainer.classList.remove('hidden');
+        weatherContainer.classList.add('hidden');
+    }
+});
+
+searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        searchButton.click();
+    }
+});

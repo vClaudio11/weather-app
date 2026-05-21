@@ -92,6 +92,12 @@ body {
     margin-bottom: 20px;
 }
 
+#errorMessage {
+    color: var(--accent-color);
+    font-weight: bold;
+    margin-top: 20px;
+}
+
 .weather-container.hidden {
     display: none;
 }
