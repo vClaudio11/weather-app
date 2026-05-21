@@ -1,4 +1,4 @@
-const API_KEY = '1e3a8cff412355c90e4c9aca9be5f1d1'; // Replace with your OpenWeatherMap API key
+const API_KEY = CONFIG.API_KEY; // Replace with your OpenWeatherMap API key
 const weatherContainer = document.querySelector('.weather-container');
 const errorContainer = document.querySelector('.error-container');
 const searchInput = document.querySelector('#searchInput');
